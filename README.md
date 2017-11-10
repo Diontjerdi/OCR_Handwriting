@@ -42,10 +42,10 @@ Give path to configuration file as argument for training.
 
 Data should have this basic structure:
 
-    $data\HASY_Ben_Char74K\mix_deslant_split0.1\test\*.png      # test images
-    $data\HASY_Ben_Char74K\mix_deslant_split0.1\train\*.png     # train images
-    $data\HASY_Ben_Char74K\mix_deslant_split0.1\test.txt        # csv list with test image paths and labels
-    $data\HASY_Ben_Char74K\mix_deslant_split0.1\train.txt       # csv list with train image paths and labels
+    $data\test\*.png      # test images
+    $data\train\*.png     # train images
+    $data\test.txt        # csv list with test image paths and labels
+    $data\train.txt       # csv list with train image paths and labels
 
 
 ### Pydoc
