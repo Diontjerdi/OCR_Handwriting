@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module imgTools</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>imgTools</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cdiontjerdi.trn%5Cpycharmprojects%5Cinstep%5Ctools%5Cimgtools.py">c:\users\diontjerdi.trn\pycharmprojects\instep\tools\imgtools.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;file&nbsp;contains&nbsp;all&nbsp;functions&nbsp;necessary&nbsp;to&nbsp;process&nbsp;images&nbsp;from&nbsp;scanned&nbsp;documents&nbsp;to&nbsp;characters&nbsp;that&nbsp;are&nbsp;suitable<br>
+to&nbsp;be&nbsp;fed&nbsp;to&nbsp;the&nbsp;CNN.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="PIL.Image.html">PIL.Image</a><br>
+</td><td width="25%" valign=top><a href="cv2.html">cv2</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-add_padding"><strong>add_padding</strong></a>(img)</dt><dd><tt>Makes&nbsp;an&nbsp;image&nbsp;square&nbsp;by&nbsp;adding&nbsp;padding&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;black&nbsp;borders.<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;binarised&nbsp;image&nbsp;with&nbsp;black&nbsp;background.<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;image&nbsp;with&nbsp;padding.</tt></dd></dl>
+ <dl><dt><a name="-binarise"><strong>binarise</strong></a>(img, kernel_size=3)</dt><dd><tt>Binarise&nbsp;image&nbsp;by&nbsp;Otsu's&nbsp;thresholding&nbsp;after&nbsp;Gaussian&nbsp;filtering<br>
+<a href="http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html">http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html</a><br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;cv2.imread&nbsp;grayscale&nbsp;image<br>
+:param&nbsp;kernel_size:&nbsp;in&nbsp;pixels<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;binarised&nbsp;image</tt></dd></dl>
+ <dl><dt><a name="-crop_border"><strong>crop_border</strong></a>(img)</dt><dd><tt>Crop&nbsp;outer&nbsp;black&nbsp;border&nbsp;from&nbsp;image.<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;binarised&nbsp;image.<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;Cropped&nbsp;image.</tt></dd></dl>
+ <dl><dt><a name="-deslant_char"><strong>deslant_char</strong></a>(img, im_size=32)</dt><dd><tt>Remove&nbsp;skew&nbsp;from&nbsp;handwritten&nbsp;character.<br>
+from:&nbsp;https://github.com/opencv/opencv/blob/master/samples/python/digits.py#L63<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;cv2.imread&nbsp;image<br>
+:param&nbsp;im_size:&nbsp;(Int)&nbsp;Desired&nbsp;output&nbsp;image&nbsp;size<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;Deslanted&nbsp;character&nbsp;image</tt></dd></dl>
+ <dl><dt><a name="-process_char"><strong>process_char</strong></a>(img, skeleton=False, deslant=False, im_size=32)</dt><dd><tt>Preprocess&nbsp;image&nbsp;-&gt;&nbsp;convert&nbsp;to&nbsp;grayscale,&nbsp;binarize,&nbsp;crop&nbsp;borders,&nbsp;resize,&nbsp;skeletonize&nbsp;(optional)<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;Grayscale&nbsp;image&nbsp;of&nbsp;character<br>
+:param&nbsp;skeleton:&nbsp;(bool)&nbsp;If&nbsp;the&nbsp;desired&nbsp;output&nbsp;is&nbsp;skeletonised&nbsp;or&nbsp;not<br>
+:param&nbsp;deslant:&nbsp;(bool)&nbsp;If&nbsp;the&nbsp;desired&nbsp;output&nbsp;is&nbsp;deslanted&nbsp;or&nbsp;not<br>
+:param&nbsp;im_size:&nbsp;(Int)&nbsp;Desired&nbsp;output&nbsp;image&nbsp;size<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;Preprocessed&nbsp;image</tt></dd></dl>
+ <dl><dt><a name="-process_doc"><strong>process_doc</strong></a>(doc, show_lines=False, show_words=False, show_chars=False, show_proj=False, char_padding=True, word_kernel_w=37)</dt><dd><tt>Process&nbsp;a&nbsp;scanned&nbsp;document&nbsp;by&nbsp;segmenting&nbsp;it&nbsp;into&nbsp;lines,&nbsp;then&nbsp;words,&nbsp;then&nbsp;characters&nbsp;and&nbsp;preprocessing&nbsp;the&nbsp;characters<br>
+:param&nbsp;doc:&nbsp;(NumPy&nbsp;array)&nbsp;cv2.imread&nbsp;grayscale&nbsp;image&nbsp;of&nbsp;document&nbsp;to&nbsp;be&nbsp;processed.<br>
+:param&nbsp;show_lines:&nbsp;(Bool)&nbsp;show&nbsp;extracted&nbsp;lines<br>
+:param&nbsp;show_words:&nbsp;(Bool)&nbsp;show&nbsp;extracted&nbsp;words<br>
+:param&nbsp;show_chars:&nbsp;(Bool)&nbsp;show&nbsp;extracted&nbsp;characters<br>
+:param&nbsp;show_proj:&nbsp;(Bool)&nbsp;show&nbsp;projections&nbsp;of&nbsp;the&nbsp;histograms<br>
+:param&nbsp;char_padding:&nbsp;(Bool)&nbsp;add&nbsp;padding&nbsp;to&nbsp;characters&nbsp;or&nbsp;not<br>
+:param&nbsp;word_kernel_w:&nbsp;(Int)&nbsp;kernel&nbsp;width&nbsp;for&nbsp;horizontal&nbsp;dilation<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;Grayscale&nbsp;images&nbsp;of&nbsp;characters,&nbsp;(NumPy&nbsp;array)&nbsp;array&nbsp;of&nbsp;word&nbsp;lengths.</tt></dd></dl>
+ <dl><dt><a name="-segment_chars"><strong>segment_chars</strong></a>(img, padding=True, show_proj=False)</dt><dd><tt>Segment&nbsp;characters&nbsp;by&nbsp;finding&nbsp;vertical&nbsp;cuts<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;Binarized&nbsp;grayscale&nbsp;image&nbsp;of&nbsp;word&nbsp;in&nbsp;cv2.imread&nbsp;format<br>
+:param&nbsp;padding:&nbsp;(bool)&nbsp;Whether&nbsp;to&nbsp;add&nbsp;padding&nbsp;so&nbsp;that&nbsp;image&nbsp;becomes&nbsp;square<br>
+:param&nbsp;show_proj:&nbsp;(Bool)&nbsp;Plot&nbsp;vertical&nbsp;projection&nbsp;of&nbsp;line<br>
+:return:&nbsp;(NumPy&nbsp;array)&nbsp;Array&nbsp;of&nbsp;cut&nbsp;characters&nbsp;from&nbsp;the&nbsp;input&nbsp;image</tt></dd></dl>
+ <dl><dt><a name="-segment_chars_contours"><strong>segment_chars_contours</strong></a>(img, show_cuts=False)</dt><dd><tt>Segment&nbsp;characters&nbsp;by&nbsp;finding&nbsp;contours.<br>
+TODO:&nbsp;deal&nbsp;with&nbsp;letter&nbsp;'i'&nbsp;and&nbsp;small&nbsp;specks&nbsp;of&nbsp;ink<br>
+:param&nbsp;img:&nbsp;Binarized&nbsp;grayscale&nbsp;image&nbsp;of&nbsp;word&nbsp;in&nbsp;cv2.imread&nbsp;format&nbsp;(NumPy&nbsp;array)<br>
+:param&nbsp;show_cuts:&nbsp;(Bool)&nbsp;show&nbsp;the&nbsp;character&nbsp;cutouts<br>
+:return:&nbsp;NumPy&nbsp;arrays&nbsp;of&nbsp;cut&nbsp;characters&nbsp;from&nbsp;the&nbsp;input&nbsp;image</tt></dd></dl>
+ <dl><dt><a name="-segment_lines"><strong>segment_lines</strong></a>(img, show_proj=False)</dt><dd><tt>Segment&nbsp;a&nbsp;document&nbsp;in&nbsp;to&nbsp;lines&nbsp;of&nbsp;text<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;cv2.imread&nbsp;grayscale&nbsp;image&nbsp;of&nbsp;document<br>
+:param&nbsp;show_proj&nbsp;(Bool)&nbsp;whether&nbsp;to&nbsp;show&nbsp;a&nbsp;plot&nbsp;of&nbsp;the&nbsp;vertical&nbsp;projection<br>
+:return:&nbsp;list&nbsp;of&nbsp;images&nbsp;(NumPy&nbsp;arrays)&nbsp;of&nbsp;lines&nbsp;of&nbsp;text</tt></dd></dl>
+ <dl><dt><a name="-segment_words"><strong>segment_words</strong></a>(img, kernel_w=37, show_proj=False)</dt><dd><tt>Segment&nbsp;a&nbsp;line&nbsp;of&nbsp;text&nbsp;into&nbsp;words<br>
+:param&nbsp;img:&nbsp;(NumPy&nbsp;array)&nbsp;grayscale&nbsp;image&nbsp;of&nbsp;line&nbsp;of&nbsp;text<br>
+:param&nbsp;kernel_w:&nbsp;(Int)&nbsp;Kernel&nbsp;width,&nbsp;how&nbsp;much&nbsp;to&nbsp;dilate&nbsp;image&nbsp;horizontally<br>
+:param&nbsp;show_proj:&nbsp;(Bool)&nbsp;Plot&nbsp;vertical&nbsp;projection&nbsp;of&nbsp;line<br>
+:return:&nbsp;(List)&nbsp;list&nbsp;of&nbsp;images&nbsp;(NumPy&nbsp;arrays)&nbsp;of&nbsp;words</tt></dd></dl>
+</td></tr></table>
+</body></html>
